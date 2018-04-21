@@ -4,12 +4,14 @@ import (
 	tf "github.com/tensorflow/tensorflow/tensorflow/go"
 )
 
+// GetInputShape finds the input image dimensions.
 func GetInputShape(graph *tf.Graph) (width, height int) {
 	input := graph.Operation("module/hub_input/images")
 	shape := input.Output(0).Shape()
 	return int(shape.Size(1)), int(shape.Size(2))
 }
 
+// RunInference executes the model and returns the logits.
 func RunInference(graph *tf.Graph, session *tf.Session, image [][][3]float32) ([]float32, error) {
 	input := graph.Operation("module/hub_input/images").Output(0)
 	output := graph.Operation("module/MobilenetV2/Logits/output").Output(0)

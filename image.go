@@ -4,6 +4,7 @@ import (
 	"github.com/disintegration/imaging"
 )
 
+// LoadImage reads an image from FS and converts it to [-1, 1] RGB float32 format.
 func LoadImage(path string, width, height int) ([][][3]float32, error) {
 	img, err := imaging.Open(path)
 	if err != nil {

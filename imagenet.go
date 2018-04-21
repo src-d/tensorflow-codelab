@@ -4,11 +4,13 @@ import (
 	"sort"
 )
 
+// Confidence is a pair of logit value and the corresponding class index.
 type Confidence struct {
 	Value float32
 	Index int
 }
 
+// SelectTopN chooses the biggest n logits.
 func SelectTopN(confs []float32, n int) []Confidence {
 	if n < 1 || n > 1000 {
 		panic("N is out of range")
@@ -21,7 +23,8 @@ func SelectTopN(confs []float32, n int) []Confidence {
 	return tmp[:n]
 }
 
-// Imagenet class names
+// ImagenetClasses holds the Imagenet class names.
+// Source github.com/tensorflow/models/research/slim/datasets/imagenet.py
 var ImagenetClasses = [1001]string{
 	"background",
 	"tench",
